@@ -76,8 +76,8 @@ app.post('/test', (req, res) => {
 // Login user
 app.post('/login', (req, res) => {
   const data = {
-    email: 'user1@test.me',
-    password: '1234',
+    email: req.body.email,
+    password: req.body.password,
   };
   User.findOne({ email: data.email }, (err, user) => {
     if ( err ) return res.status(400).json({ log: err });
@@ -90,11 +90,11 @@ app.post('/login', (req, res) => {
 // Register user
 app.post('/register', (req, res) => {
   const data = {
-    firstname: 'Thanawat',
-    lastname: 'Benjachatriroj',
-    email: 'user2@test.me',
-    password: '1234',
-    displayName: 'Tutorism',
+    firstname: req.body.firstname,
+    lastname: req.body.lastname,
+    email: req.body.email,
+    password: req.body.password,
+    displayName: req.body.displayName,
     donation: 0,
   };
   
@@ -114,11 +114,11 @@ app.post('/register', (req, res) => {
 // Create Post
 app.post('/post', (req, res) => {
   const data = {
-    title: 'Item #3',
-    image: 'url',
-    price: 450,
-    sellerDonate: false,
-    sellerId: USER2_ID,
+    title: req.body.title,
+    image: req.body.image,
+    price: req.body.price,
+    sellerDonate: req.body.sellerDonate,
+    sellerId: req.body.sellerId,
   };
   const tmpPost = new Post(data);
   tmpPost.save((err, post) => {
@@ -128,6 +128,30 @@ app.post('/post', (req, res) => {
 })
 
 // Get All Post
+// app.get('/post', (req, res) => {
+//   Post.find({}, (err, post) => {
+//     if ( err ) return res.status(400).json({ log: err });
+//     const posts = post.map((item) => {
+//       let data = {
+//         id: item._id,
+//         title: item.title,
+//         image: item.image,
+//         price: item.price,
+//         sellerDonate: item.sellerDonate,
+//         sellerId: item.sellerId,
+//         sellerName: null,
+//         isAvailable: item.buyerId ? false : true,
+//       }
+//       User.findById(item.sellerId).exec((err, user) => {
+//         data.sellerName = user.displayName
+//       })
+//       return data;
+//     })
+//     return res.status(200).json(posts);
+//   })
+// })
+
+// // Get All Post
 app.get('/post', (req, res) => {
   Post.find({}, (err, post) => {
     if ( err ) return res.status(400).json({ log: err });
@@ -148,8 +172,8 @@ app.get('/post', (req, res) => {
 
 // Get User Post
 app.get('/post/user', (req, res) => {
-  // const { id } = req.query;
-  const id = USER2_ID;
+  const { id } = req.query;
+  // const id = USER2_ID;
   Post.find({ sellerId: id }, (err, post) => {
     if ( err ) return res.status(400).json({ log: err });
     if ( !post ) return res.status(400).json({ log: 'Post is not exists' });
@@ -170,34 +194,37 @@ app.get('/post/user', (req, res) => {
 
 // Get Post Information
 app.get('/post/info', (req, res) => {
-  // const { id } = req.query
-  const id = POST3_ID
-  Post.findById(id , (err, post) => {
+  const { id } = req.query
+  // const id = POST3_ID
+  Post.findById(id , (err, item) => {
     if ( err ) return res.status(400).json({ log: err });
-    if ( !post ) return res.status(400).json({ log: 'Post is not exists' });
-    return res.status(200).json(post);
+    if ( !item ) return res.status(400).json({ log: 'Post is not exists' });
+    const data = {
+      id: item._id,
+      title: item.title,
+      image: item.image,
+      price: item.price,
+      sellerDonate: item.sellerDonate,
+      sellerId: item.sellerId,
+      isAvailable: item.buyerId ? false : true,
+    }
+    return res.status(200).json(data);
   })
 })
 
 // Purchase
 app.post('/purchase', (req, res) => {
-  const buyerId = USER2_ID
-  const posts = [
-    { id: POST1_ID, buyerDonate: true },
-    { id: POST2_ID, buyerDonate: false },
-  ]
+  const { buyerId } = req.body
+  const posts = req.body.posts
   posts.map((item) => {
     Post.findById(item.id , (err, data) => {
       if ( err ) return res.status(400).json({ log: err });
       if ( !data ) return res.status(400).json({ log: 'Post is not exists' });
       const { sellerId, sellerDonate, price } = data
-      // console.log(sellerId, sellerDonate, price)
       if (sellerDonate) {
-        // console.log("SELLER")
         User.findOneAndUpdate({ _id: sellerId }, { $inc: { donation: (price*0.1) } }).exec()
       }
       if (item.buyerDonate) {
-        // console.log("BUYER")
         User.findOneAndUpdate({ _id: buyerId }, { $inc: { donation: (price*0.1) } }).exec()
       }
       Post.findOneAndUpdate({ _id: item.id }, { buyerDonate: item.buyerDonate, buyerId: buyerId }).exec()
@@ -208,8 +235,8 @@ app.post('/purchase', (req, res) => {
 
 // Get User Profile
 app.get('/user', (req, res) => {
-  // const { id } = req.query;
-  const id = USER1_ID
+  const { id } = req.query;
+  // const id = USER1_ID
   User.findById(id, (err, user) => {
     if ( err ) return res.status(400).json({ log: err });
     const data = {
@@ -225,8 +252,8 @@ app.get('/user', (req, res) => {
 })
 
 app.get('/user/donation', (req, res) => {
-  // const { id } = req.query;
-  const id = USER1_ID
+  const { id } = req.query;
+  // const id = USER1_ID
   User.findById(id, (err, user) => {
     if ( err ) return res.status(400).json({ log: err });
     const data = {
@@ -240,8 +267,8 @@ app.get('/user/donation', (req, res) => {
 
 // Get User DisplayName
 app.get('/user/display', (req, res) => {
-  // const { id } = req.query;
-  const id = USER1_ID
+  const { id } = req.query;
+  // const id = USER1_ID
   User.findById(id, (err, user) => {
     if ( err ) return res.status(400).json({ log: err });
     return res.status(200).json({ 
