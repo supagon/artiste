@@ -185,7 +185,7 @@
 
 - ### `User` Method
 
-  1. Get Profile `[WIP]`
+  1. Get Profile `[DONE]`
       - **URL** : `/user`
       - **Method** : `GET`
       - **URL Queries** : `id: userId`

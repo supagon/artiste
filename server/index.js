@@ -88,6 +88,7 @@ app.post('/register', (req, res) => {
     email: 'user@test.me',
     password: '1234',
     displayName: 'Tutorism',
+    donation: 0,
   };
   
   // Check duplicate email
@@ -165,6 +166,23 @@ app.get('/post/info', (req, res) => {
     if ( err ) return res.status(400).json({ log: err });
     if ( !post ) return res.status(400).json({ log: 'Post is not exists' });
     return res.status(200).json(post);
+  })
+})
+
+// Get User Profile
+app.get('/user', (req, res) => {
+  const { id } = req.query;
+  User.findById(id, (err, user) => {
+    if ( err ) return res.status(400).json({ log: err });
+    const data = {
+      id: user._id,
+      firstname: user.firstname,
+      lastname: user.lastname,
+      email: user.email,
+      displayName: user.displayName,
+      donation: user.donation,
+    }
+    return res.status(200).json(data);
   })
 })
 
