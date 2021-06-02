@@ -69,11 +69,11 @@ app.get('/', (req, res) => {
 // Login user
 app.post('/login', (req, res) => {
   const data = {
-    email: 'thanawat.bcr@gmail.com',
+    email: 'user@test.me',
     password: '1234',
   };
   User.findOne({ email: data.email }, (err, user) => {
-    if ( err ) return res.status(400);
+    if ( err ) return res.status(400).json({ log: err });
     if ( !user ) return res.status(400).json({ log: 'User not found' });
     if ( user.password === data.password ) return res.status(200).json({ id: user._id });
     return res.status(400).json({ log: 'Password wrong' });
@@ -81,24 +81,27 @@ app.post('/login', (req, res) => {
 })
 
 // Register user
-app.post('/user', (req, res) => {
-  const user = {
+app.post('/register', (req, res) => {
+  const data = {
     firstname: 'Thanawat',
     lastname: 'Benjachatriroj',
-    email: 'thanawat.bcr@gmail.com',
+    email: 'user@test.me',
     password: '1234',
     displayName: 'Tutorism',
   };
-  const tmpUser = new User(user);
-  tmpUser.save()
-    .then((doc) => {
-      console.log(doc)
-      const userId = doc._id;
-      return res.status(201).json({ id: userId });
-    }).catch((err) => {
-      console.log(err)
-      return res.status(400);
-    });
+  
+  // Check duplicate email
+  User.findOne({ email: data.email }, (err, user) => {
+    if ( err ) return res.status(400).json({ log: err });
+    if ( user ) return res.status(400).json({ log: 'Email is already exists' });
+    // Insert user
+    const tmpUser = new User(data);
+    tmpUser.save((err, user) => {
+      if ( err ) return res.status(400).json({ log: err });
+      return res.status(201).json({ id: user._id });
+    })
+  })
+  
 });
 
 app.post('/post', (req, res) => {
