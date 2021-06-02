@@ -219,21 +219,18 @@
   2. Get Donation Name `[DONE]`
       - **URL** : `/user/donation`
       - **Method** : `GET`
-      - **URL Queries** : `id: userId`
-          ```
-            {
-              id: String
-            }
-          ```
+      - **URL Queries** : `none`
       - **Body** : `none`
       - **Response** :
         - Status Code : `200`
           ```
-            {
-              id: String
-              displayName: String
-              donation: Number
-            }
+            [
+              {
+                id: String
+                displayName: String
+                donation: Number
+              }
+            ]
           ```
         - Status Code : `400`
           ```
