@@ -179,6 +179,33 @@ app.get('/post/info', (req, res) => {
   })
 })
 
+// Purchase
+app.post('/purchase', (req, res) => {
+  const buyerId = USER2_ID
+  const posts = [
+    { id: POST1_ID, buyerDonate: true },
+    { id: POST2_ID, buyerDonate: false },
+  ]
+  posts.map((item) => {
+    Post.findById(item.id , (err, data) => {
+      if ( err ) return res.status(400).json({ log: err });
+      if ( !data ) return res.status(400).json({ log: 'Post is not exists' });
+      const { sellerId, sellerDonate, price } = data
+      // console.log(sellerId, sellerDonate, price)
+      if (sellerDonate) {
+        // console.log("SELLER")
+        User.findOneAndUpdate({ _id: sellerId }, { $inc: { donation: (price*0.1) } }).exec()
+      }
+      if (item.buyerDonate) {
+        // console.log("BUYER")
+        User.findOneAndUpdate({ _id: buyerId }, { $inc: { donation: (price*0.1) } }).exec()
+      }
+      Post.findOneAndUpdate({ _id: item.id }, { buyerDonate: item.buyerDonate, buyerId: buyerId }).exec()
+    })
+  })
+  return res.status(200).send();
+})
+
 // Get User Profile
 app.get('/user', (req, res) => {
   // const { id } = req.query;

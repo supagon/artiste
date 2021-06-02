@@ -170,7 +170,7 @@
               log: String
             }
           ```
-  5. Purchase `[WIP]`
+  5. Purchase `[DONE]`
       - **URL** : `/purchase`
       - **Method** : `POST`
       - **URL Queries** : `none`
