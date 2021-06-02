@@ -90,10 +90,10 @@
       - **Method** : `GET`
       - **URL Queries** : `none`
       - **Body** : `none`
-      - **Response** : `sellerName: displayName, id: postId`
+      - **Response** : `sellerId: sellerId, id: postId`
         - Status Code : `200`
           ```
-            post: [
+            [
               {
                 id: String
                 title: String
@@ -110,7 +110,7 @@
               log: String
             }
           ```
-  4. Get User Posts `[WIP]`
+  3. Get User Posts `[DONE]`
       - **URL** : `/post/user`
       - **Method** : `GET`
       - **URL Queries** : `id: userId`
@@ -120,7 +120,7 @@
             }
           ```
       - **Body** : `none`
-      - **Response** : `sellerName: displayName, id: postId`
+      - **Response** : `sellerId: sellerId, id: postId`
         - Status Code : `200`
           ```
             posts: [
@@ -140,8 +140,8 @@
               log: String
             }
           ```
-  5. Get Post Information `[WIP]`
-      - **URL** : `/post/info/:id`
+  4. Get Post Information `[DONE]`
+      - **URL** : `/post/info`
       - **Method** : `GET`
       - **URL Queries** : `id: postId`
           ```
@@ -150,7 +150,7 @@
             }
           ```
       - **Body** : `none`
-      - **Response** : `sellerName: displayName, id: postId`
+      - **Response** : `sellerId: sellerId, id: postId`
         - Status Code : `200`
           ```
             {
@@ -159,7 +159,7 @@
               image: String
               price: Number
               sellerDonate: Boolean
-              sellerName: String
+              sellerId: String
             }
           ```
         - Status Code : `400`
@@ -168,7 +168,7 @@
               log: String
             }
           ```
-  6. Purchase `[WIP]`
+  5. Purchase `[WIP]`
       - **URL** : `/purchase`
       - **Method** : `POST`
       - **URL Queries** : `none`

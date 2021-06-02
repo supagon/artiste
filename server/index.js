@@ -101,28 +101,82 @@ app.post('/register', (req, res) => {
       return res.status(201).json({ id: user._id });
     })
   })
-  
 });
 
+// Create Post
 app.post('/post', (req, res) => {
-  const id = '60b64baba1ae4c7d7ac81c1a'
-  const post = {
+  const id = '60b7141560f91b8605743b81'
+  const data = {
     title: 'Jimmy Nudey',
     image: 'url',
     price: 300,
     sellerDonate: false,
     sellerId: id,
   };
-  const tmpPost = new Post(post);
-  tmpPost.save()
-    .then((doc) => {
-      console.log(doc)
-      return res.status(201).send('success');
-    }).catch((err) => {
-      console.log(err)
-      return res.status(400).send('error');
-    });
+  const tmpPost = new Post(data);
+  tmpPost.save((err, post) => {
+    if ( err ) return res.status(400).json({ log: err });
+    return res.status(201).json({ id: post._id });
+  })
 })
+
+// Get All Post
+app.get('/post', (req, res) => {
+  Post.find({}, (err, post) => {
+    if ( err ) return res.status(400).json({ log: err });
+    const data = post.map((item) => (
+      {
+        id: item._id,
+        title: item.title,
+        image: item.image,
+        price: item.price,
+        sellerDonate: item.sellerDonate,
+        sellerId: item.sellerId,
+      }
+    ))
+    return res.status(200).json(data);
+  })
+})
+
+// Get All Post
+app.get('/post/user', (req, res) => {
+  const { id } = req.query;
+  Post.find({ sellerId: id }, (err, post) => {
+    if ( err ) return res.status(400).json({ log: err });
+    if ( !post ) return res.status(400).json({ log: 'Post is not exists' });
+    const data = post.map((item) => (
+      {
+        id: item._id,
+        title: item.title,
+        image: item.image,
+        price: item.price,
+        sellerDonate: item.sellerDonate,
+        sellerId: item.sellerId,
+      }
+    ))
+    return res.status(200).json(data);
+  })
+})
+
+// Get Post Information
+app.get('/post/info', (req, res) => {
+  const { id } = req.query
+  Post.findById(id , (err, post) => {
+    if ( err ) return res.status(400).json({ log: err });
+    if ( !post ) return res.status(400).json({ log: 'Post is not exists' });
+    return res.status(200).json(post);
+  })
+})
+
+// Get Seller DisplayName
+app.get('/user/display', (req, res) => {
+  const { id } = req.query;
+  User.findById(id, (err, user) => {
+    if ( err ) return res.status(400).json({ log: err });
+    return res.status(200).json({ displayName: user.displayName });
+  })
+})
+
 
 app.post('/update', (req, res) => {
   const id = '60b65206de823e7e95ef7563'
