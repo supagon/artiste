@@ -199,10 +199,10 @@
         - Status Code : `200`
           ```
             {
+              id: String
               firstname: String
               lastname: String
               email: String
-              password: String
               displayName: String
               donation: Number
             }
