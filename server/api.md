@@ -162,6 +162,7 @@
               price: Number
               sellerDonate: Boolean
               sellerId: String
+              isAvailable: Boolean
             }
           ```
         - Status Code : `400`
