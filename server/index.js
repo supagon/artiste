@@ -1,9 +1,11 @@
 import express from 'express';
+import bodyParser from 'body-parser'
 import cors from 'cors';
 
 var PORT = process.env.PORT || 3000;
 var app = express();
 app.use(cors());
+app.use(bodyParser.json());
 app.listen(PORT);
 
 // mongoose connection
@@ -47,18 +49,10 @@ const postSchema = mongoose.Schema(
   },
   { collection: 'posts' }
 )
-const cartSchema = mongoose.Schema(
-  {
-    userId: String,
-    postId: String,
-  },
-  { collection: 'carts' }
-)
 
 // MODEL
 const User = mongoose.model('User', userSchema);
 const Post = mongoose.model('Post', postSchema);
-const Cart = mongoose.model('Cart', cartSchema);
 
 const USER1_ID = '60b736e9121bb69e1b78800c';
 const USER2_ID = '60b737099182a89e45bd1fd8';
@@ -71,6 +65,12 @@ const POST3_ID = '60b737d6e908d59ede629259';
 // TEST
 app.get('/', (req, res) => {
   return res.status(200).send('hello');
+});
+
+// TEST
+app.post('/test', (req, res) => {
+  console.log(req.body)
+  return res.status(200).send(req.body);
 });
 
 // Login user
