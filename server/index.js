@@ -60,6 +60,13 @@ const User = mongoose.model('User', userSchema);
 const Post = mongoose.model('Post', postSchema);
 const Cart = mongoose.model('Cart', cartSchema);
 
+const USER1_ID = '60b736e9121bb69e1b78800c';
+const USER2_ID = '60b737099182a89e45bd1fd8';
+
+const POST1_ID = '60b73763f46fd59e8dbf82cb';
+const POST2_ID = '60b7377d1ec1439ea421eb87';
+const POST3_ID = '60b737d6e908d59ede629259';
+
 // API
 // TEST
 app.get('/', (req, res) => {
@@ -69,7 +76,7 @@ app.get('/', (req, res) => {
 // Login user
 app.post('/login', (req, res) => {
   const data = {
-    email: 'user@test.me',
+    email: 'user1@test.me',
     password: '1234',
   };
   User.findOne({ email: data.email }, (err, user) => {
@@ -85,7 +92,7 @@ app.post('/register', (req, res) => {
   const data = {
     firstname: 'Thanawat',
     lastname: 'Benjachatriroj',
-    email: 'user@test.me',
+    email: 'user2@test.me',
     password: '1234',
     displayName: 'Tutorism',
     donation: 0,
@@ -106,13 +113,12 @@ app.post('/register', (req, res) => {
 
 // Create Post
 app.post('/post', (req, res) => {
-  const id = '60b7141560f91b8605743b81'
   const data = {
-    title: 'Jimmy Nudey',
+    title: 'Item #3',
     image: 'url',
-    price: 300,
+    price: 450,
     sellerDonate: false,
-    sellerId: id,
+    sellerId: USER2_ID,
   };
   const tmpPost = new Post(data);
   tmpPost.save((err, post) => {
@@ -141,7 +147,8 @@ app.get('/post', (req, res) => {
 
 // Get User Post
 app.get('/post/user', (req, res) => {
-  const { id } = req.query;
+  // const { id } = req.query;
+  const id = USER2_ID;
   Post.find({ sellerId: id }, (err, post) => {
     if ( err ) return res.status(400).json({ log: err });
     if ( !post ) return res.status(400).json({ log: 'Post is not exists' });
@@ -161,7 +168,8 @@ app.get('/post/user', (req, res) => {
 
 // Get Post Information
 app.get('/post/info', (req, res) => {
-  const { id } = req.query
+  // const { id } = req.query
+  const id = POST3_ID
   Post.findById(id , (err, post) => {
     if ( err ) return res.status(400).json({ log: err });
     if ( !post ) return res.status(400).json({ log: 'Post is not exists' });
@@ -171,7 +179,8 @@ app.get('/post/info', (req, res) => {
 
 // Get User Profile
 app.get('/user', (req, res) => {
-  const { id } = req.query;
+  // const { id } = req.query;
+  const id = USER1_ID
   User.findById(id, (err, user) => {
     if ( err ) return res.status(400).json({ log: err });
     const data = {
@@ -188,7 +197,8 @@ app.get('/user', (req, res) => {
 
 // Get User DisplayName
 app.get('/user/display', (req, res) => {
-  const { id } = req.query;
+  // const { id } = req.query;
+  const id = USER1_ID
   User.findById(id, (err, user) => {
     if ( err ) return res.status(400).json({ log: err });
     return res.status(200).json({ displayName: user.displayName });
