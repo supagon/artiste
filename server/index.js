@@ -138,7 +138,7 @@ app.get('/post', (req, res) => {
   })
 })
 
-// Get All Post
+// Get User Post
 app.get('/post/user', (req, res) => {
   const { id } = req.query;
   Post.find({ sellerId: id }, (err, post) => {
@@ -168,7 +168,7 @@ app.get('/post/info', (req, res) => {
   })
 })
 
-// Get Seller DisplayName
+// Get User DisplayName
 app.get('/user/display', (req, res) => {
   const { id } = req.query;
   User.findById(id, (err, user) => {
