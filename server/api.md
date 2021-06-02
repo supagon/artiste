@@ -215,7 +215,32 @@
               log: String
             }
           ```
-  2. Get Display Name `[DONE]`
+  2. Get Donation Name `[DONE]`
+      - **URL** : `/user/donation`
+      - **Method** : `GET`
+      - **URL Queries** : `id: userId`
+          ```
+            {
+              id: String
+            }
+          ```
+      - **Body** : `none`
+      - **Response** :
+        - Status Code : `200`
+          ```
+            {
+              id: String
+              displayName: String
+              donation: Number
+            }
+          ```
+        - Status Code : `400`
+          ```
+            {
+              log: String
+            }
+          ```
+  3. Get Display Name `[DONE]`
       - **URL** : `/user/display`
       - **Method** : `GET`
       - **URL Queries** : `id: userId`
@@ -229,6 +254,7 @@
         - Status Code : `200`
           ```
             {
+              id: String
               displayName: String
             }
           ```

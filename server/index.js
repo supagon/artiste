@@ -224,12 +224,28 @@ app.get('/user', (req, res) => {
   })
 })
 
+app.get('/user/donation', (req, res) => {
+  // const { id } = req.query;
+  const id = USER1_ID
+  User.findById(id, (err, user) => {
+    if ( err ) return res.status(400).json({ log: err });
+    const data = {
+      id: user._id,
+      displayName: user.displayName,
+      donation: user.donation,
+    }
+    return res.status(200).json(data);
+  })
+})
+
 // Get User DisplayName
 app.get('/user/display', (req, res) => {
   // const { id } = req.query;
   const id = USER1_ID
   User.findById(id, (err, user) => {
     if ( err ) return res.status(400).json({ log: err });
-    return res.status(200).json({ displayName: user.displayName });
+    return res.status(200).json({ 
+      id: user._id, displayName: user.displayName
+    });
   })
 })
