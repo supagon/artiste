@@ -5,34 +5,34 @@
 - ### `Authentication` Method
 
   1. Login
-     - **URL** : `/login`
-     - **Method** : `POST`
-     - **URL Params** : `none`
-     - **Body** :
+      - **URL** : `/login`
+      - **Method** : `POST`
+      - **URL Params** : `none`
+      - **Body** :
           ```
             {
               email: String
               password: String
             }
           ```
-     - **Response** :
-       - Status Code : `200`
+      - **Response** :
+        - Status Code : `200`
           ```
             {
               id: String
             }
           ```
-       - Status Code : `400`
+        - Status Code : `400`
           ```
             {
               log: String
             }
           ```
   2. register
-     - **URL** : `/register`
-     - **Method** : `POST`
-     - **URL Params** : `none`
-     - **Body** :
+      - **URL** : `/register`
+      - **Method** : `POST`
+      - **URL Params** : `none`
+      - **Body** :
           ```
             {
               firstname: String
@@ -42,14 +42,14 @@
               displayName: String
             }
           ```
-     - **Response** :
-       - Status Code : `201`
+      - **Response** :
+        - Status Code : `201`
           ```
             {
               id: String,
             }
           ```
-       - Status Code : `400`
+        - Status Code : `400`
           ```
             {
               log: String,
@@ -59,10 +59,10 @@
 - ### `Post` Method
 
   1. Create Post
-    - **URL** : `/post`
-    - **Method** : `POST`
-    - **URL Params** : `none`
-    - **Body** :
+      - **URL** : `/post`
+      - **Method** : `POST`
+      - **URL Params** : `none`
+      - **Body** :
           ```
             {
               title: String
@@ -72,26 +72,26 @@
               sellerId: String
             }
           ```
-    - **Response** :
-      - Status Code : `201`
+      - **Response** :
+        - Status Code : `201`
           ```
             {
               id: String
             }
           ```
-      - Status Code : `400`
+        - Status Code : `400`
           ```
             {
               log: String
             }
           ```
   2. Get All Posts
-    - **URL** : `/post`
-    - **Method** : `GET`
-    - **URL Params** : `none`
-    - **Body** : `none`
-    - **Response** : `sellerName: displayName, id: postId`
-      - Status Code : `200`
+      - **URL** : `/post`
+      - **Method** : `GET`
+      - **URL Params** : `none`
+      - **Body** : `none`
+      - **Response** : `sellerName: displayName, id: postId`
+        - Status Code : `200`
           ```
             post: [
               {
@@ -104,24 +104,24 @@
               }
             ]
           ```
-      - Status Code : `400`
+        - Status Code : `400`
           ```
             {
               log: String
             }
           ```
   3. Get User Posts
-    - **URL** : `/post/user/:id`
-    - **Method** : `GET`
-    - **URL Params** : `id: userId`
+      - **URL** : `/post/user/:id`
+      - **Method** : `GET`
+      - **URL Params** : `id: userId`
           ```
             {
               id: String
             }
           ```
-    - **Body** : `none`
-    - **Response** : `sellerName: displayName, id: postId`
-      - Status Code : `200`
+      - **Body** : `none`
+      - **Response** : `sellerName: displayName, id: postId`
+        - Status Code : `200`
           ```
             post: [
               {
@@ -134,24 +134,24 @@
               }
             ]
           ```
-      - Status Code : `400`
+        - Status Code : `400`
           ```
             {
               log: String
             }
           ```
   4. Get Post Information
-    - **URL** : `/post/info/:id`
-    - **Method** : `GET`
-    - **URL Params** : `id: postId`
+      - **URL** : `/post/info/:id`
+      - **Method** : `GET`
+      - **URL Params** : `id: postId`
           ```
             {
               id: String
             }
           ```
-    - **Body** : `none`
-    - **Response** : `sellerName: displayName, id: postId`
-      - Status Code : `200`
+      - **Body** : `none`
+      - **Response** : `sellerName: displayName, id: postId`
+        - Status Code : `200`
           ```
             {
               id: String
@@ -162,41 +162,41 @@
               sellerName: String
             }
           ```
-      - Status Code : `400`
+        - Status Code : `400`
           ```
             {
               log: String
             }
           ```
   5. Purchase
-    - **URL** : `/purchase`
-    - **Method** : `POST`
-    - **URL Params** : `none`
-    - **Body** : `id: postId`
+      - **URL** : `/purchase`
+      - **Method** : `POST`
+      - **URL Params** : `none`
+      - **Body** : `id: postId`
           ```
             {
               buyerId: String
               posts: [{ id: String, buyerDonate: Boolean }]
             }
           ```
-    - **Response** :
-      - Status Code : `200`
-      - Status Code : `400`
+      - **Response** :
+        - Status Code : `200`
+        - Status Code : `400`
 
 - ### `User` Method
 
   1. Get Profile
-    - **URL** : `/user`
-    - **Method** : `GET`
-    - **URL Params** : `id: userId`
+      - **URL** : `/user`
+      - **Method** : `GET`
+      - **URL Params** : `id: userId`
           ```
             {
               id: String
             }
           ```
-    - **Body** : `none`
-    - **Response** :
-      - Status Code : `200`
+      - **Body** : `none`
+      - **Response** :
+        - Status Code : `200`
           ```
             {
               firstname: String
@@ -207,7 +207,7 @@
               donation: Number
             }
           ```
-      - Status Code : `400`
+        - Status Code : `400`
           ```
             {
               log: String
