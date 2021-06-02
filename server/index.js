@@ -9,7 +9,6 @@ app.listen(PORT);
 // mongoose connection
 const mongoose = require('mongoose');
 mongoose.connect(
-  // 'mongodb://tutorism:1234@192.168.1.37:27017/data?authSource=admin',
   'mongodb+srv://root:1234@artiste.0zec7.mongodb.net/artiste?authSource=admin',
   {
     useNewUrlParser: true,
@@ -24,6 +23,18 @@ db.once('open', function () {
   console.log('DB connected');
 });
 
+// SCHEMA
+const userSchema = mongoose.Schema(
+  {
+    firstname: String,
+    lastname: String,
+    email: String,
+    password: String,
+    displayName: String,
+    donation: Number,
+  },
+  { collection: 'users' }
+);
 const postSchema = mongoose.Schema(
   {
     title: String,
@@ -36,26 +47,40 @@ const postSchema = mongoose.Schema(
   },
   { collection: 'posts' }
 )
-
-const userSchema = mongoose.Schema(
+const cartSchema = mongoose.Schema(
   {
-    firstname: String,
-    lastname: String,
-    email: String,
-    password: String,
-    displayName: String,
-    donation: Number,
+    userId: String,
+    postId: String,
   },
-  { collection: 'users' }
-);
+  { collection: 'carts' }
+)
 
+// MODEL
 const User = mongoose.model('User', userSchema);
 const Post = mongoose.model('Post', postSchema);
+const Cart = mongoose.model('Cart', cartSchema);
 
+// API
+// TEST
 app.get('/', (req, res) => {
   return res.status(200).send('hello');
 });
 
+// Login user
+app.post('/login', (req, res) => {
+  const data = {
+    email: 'thanawat.bcr@gmail.com',
+    password: '1234',
+  };
+  User.findOne({ email: data.email }, (err, user) => {
+    if ( err ) return res.status(400);
+    if ( !user ) return res.status(400).json({ log: 'User not found' });
+    if ( user.password === data.password ) return res.status(200).json({ id: user._id });
+    return res.status(400).json({ log: 'Password wrong' });
+  })
+})
+
+// Register user
 app.post('/user', (req, res) => {
   const user = {
     firstname: 'Thanawat',
@@ -63,16 +88,16 @@ app.post('/user', (req, res) => {
     email: 'thanawat.bcr@gmail.com',
     password: '1234',
     displayName: 'Tutorism',
-    donation: 3000,
   };
   const tmpUser = new User(user);
   tmpUser.save()
     .then((doc) => {
       console.log(doc)
-      return res.status(201).send('success');
+      const userId = doc._id;
+      return res.status(201).json({ id: userId });
     }).catch((err) => {
       console.log(err)
-      return res.status(400).send('error');
+      return res.status(400);
     });
 });
 
