@@ -4,10 +4,10 @@
 
 - ### `Authentication` Method
 
-  1. Login
+  1. Login `[DONE]`
       - **URL** : `/login`
       - **Method** : `POST`
-      - **URL Params** : `none`
+      - **URL Queries** : `none`
       - **Body** :
           ```
             {
@@ -28,10 +28,10 @@
               log: String
             }
           ```
-  2. register
+  2. register `[DONE]`
       - **URL** : `/register`
       - **Method** : `POST`
-      - **URL Params** : `none`
+      - **URL Queries** : `none`
       - **Body** :
           ```
             {
@@ -58,10 +58,10 @@
 
 - ### `Post` Method
 
-  1. Create Post
+  1. Create Post `[DONE]`
       - **URL** : `/post`
       - **Method** : `POST`
-      - **URL Params** : `none`
+      - **URL Queries** : `none`
       - **Body** :
           ```
             {
@@ -85,10 +85,10 @@
               log: String
             }
           ```
-  2. Get All Posts
+  2. Get All Posts `[DONE]`
       - **URL** : `/post`
       - **Method** : `GET`
-      - **URL Params** : `none`
+      - **URL Queries** : `none`
       - **Body** : `none`
       - **Response** : `sellerName: displayName, id: postId`
         - Status Code : `200`
@@ -100,7 +100,7 @@
                 image: String
                 price: Number
                 sellerDonate: Boolean
-                sellerName: String
+                sellerId: String
               }
             ]
           ```
@@ -110,10 +110,10 @@
               log: String
             }
           ```
-  3. Get User Posts
-      - **URL** : `/post/user/:id`
+  4. Get User Posts `[WIP]`
+      - **URL** : `/post/user`
       - **Method** : `GET`
-      - **URL Params** : `id: userId`
+      - **URL Queries** : `id: userId`
           ```
             {
               id: String
@@ -123,14 +123,14 @@
       - **Response** : `sellerName: displayName, id: postId`
         - Status Code : `200`
           ```
-            post: [
+            posts: [
               {
                 id: String
                 title: String
                 image: String
                 price: Number
                 sellerDonate: Boolean
-                sellerName: String
+                sellerId: String
               }
             ]
           ```
@@ -140,10 +140,10 @@
               log: String
             }
           ```
-  4. Get Post Information
+  5. Get Post Information `[WIP]`
       - **URL** : `/post/info/:id`
       - **Method** : `GET`
-      - **URL Params** : `id: postId`
+      - **URL Queries** : `id: postId`
           ```
             {
               id: String
@@ -168,10 +168,10 @@
               log: String
             }
           ```
-  5. Purchase
+  6. Purchase `[WIP]`
       - **URL** : `/purchase`
       - **Method** : `POST`
-      - **URL Params** : `none`
+      - **URL Queries** : `none`
       - **Body** : `id: postId`
           ```
             {
@@ -185,10 +185,10 @@
 
 - ### `User` Method
 
-  1. Get Profile
+  1. Get Profile `[WIP]`
       - **URL** : `/user`
       - **Method** : `GET`
-      - **URL Params** : `id: userId`
+      - **URL Queries** : `id: userId`
           ```
             {
               id: String
@@ -205,6 +205,29 @@
               password: String
               displayName: String
               donation: Number
+            }
+          ```
+        - Status Code : `400`
+          ```
+            {
+              log: String
+            }
+          ```
+  2. Get Display Name `[DONE]`
+      - **URL** : `/user/display`
+      - **Method** : `GET`
+      - **URL Queries** : `id: userId`
+          ```
+            {
+              id: String
+            }
+          ```
+      - **Body** : `none`
+      - **Response** :
+        - Status Code : `200`
+          ```
+            {
+              displayName: String
             }
           ```
         - Status Code : `400`
