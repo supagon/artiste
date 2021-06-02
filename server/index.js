@@ -233,33 +233,3 @@ app.get('/user/display', (req, res) => {
     return res.status(200).json({ displayName: user.displayName });
   })
 })
-
-
-app.post('/update', (req, res) => {
-  const id = '60b65206de823e7e95ef7563'
-  Post.findByIdAndUpdate(
-    { _id: id },
-    { buyerId: 'tutor' }
-  )
-    .then((doc) => {
-      console.log(doc)
-      return res.status(201).send('success');
-    }).catch((err) => {
-      console.log(err)
-      return res.status(400).send('error');
-    });
-})
-
-app.post('/delete', (req, res) => {
-  const id = '60b65206de823e7e95ef7563'
-  Post.findByIdAndDelete(
-    { _id: id }
-  )
-    .then((doc) => {
-      console.log(doc)
-      return res.status(201).send('success');
-    }).catch((err) => {
-      console.log(err)
-      return res.status(400).send('error');
-    });
-})
