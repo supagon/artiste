@@ -139,6 +139,7 @@ app.get('/post', (req, res) => {
         price: item.price,
         sellerDonate: item.sellerDonate,
         sellerId: item.sellerId,
+        isAvailable: item.buyerId ? false : true
       }
     ))
     return res.status(200).json(data);
@@ -160,6 +161,7 @@ app.get('/post/user', (req, res) => {
         price: item.price,
         sellerDonate: item.sellerDonate,
         sellerId: item.sellerId,
+        isAvailable: item.buyerId ? false : true
       }
     ))
     return res.status(200).json(data);

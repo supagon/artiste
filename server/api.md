@@ -101,6 +101,7 @@
                 price: Number
                 sellerDonate: Boolean
                 sellerId: String
+                isAvailable: Boolean
               }
             ]
           ```
@@ -123,7 +124,7 @@
       - **Response** : `sellerId: sellerId, id: postId`
         - Status Code : `200`
           ```
-            posts: [
+            [
               {
                 id: String
                 title: String
@@ -131,6 +132,7 @@
                 price: Number
                 sellerDonate: Boolean
                 sellerId: String
+                isAvailable: Boolean
               }
             ]
           ```
