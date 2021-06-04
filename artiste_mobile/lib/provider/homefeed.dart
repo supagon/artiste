@@ -8,7 +8,7 @@ import 'package:dio/dio.dart';
 
 class Homefeed extends ChangeNotifier {
   List<Homelist> _feed = [];
-  var publicAPI = 'http://192.168.172.1:3000/post';
+  var publicAPI = 'http://23.102.228.97:3000/';
 
   List<Homelist> get feed {
     return [..._feed];
@@ -19,7 +19,7 @@ class Homefeed extends ChangeNotifier {
   }
 
   Future<List<Homelist>> fetchHomefeed() async {
-    var endpoint = publicAPI;
+    var endpoint = publicAPI + 'post';
 
     try {
       final res = await Dio().get(endpoint);
