@@ -127,30 +127,6 @@ app.post('/post', (req, res) => {
   })
 })
 
-// Get All Post
-// app.get('/post', (req, res) => {
-//   Post.find({}, (err, post) => {
-//     if ( err ) return res.status(400).json({ log: err });
-//     const posts = post.map((item) => {
-//       let data = {
-//         id: item._id,
-//         title: item.title,
-//         image: item.image,
-//         price: item.price,
-//         sellerDonate: item.sellerDonate,
-//         sellerId: item.sellerId,
-//         sellerName: null,
-//         isAvailable: item.buyerId ? false : true,
-//       }
-//       User.findById(item.sellerId).exec((err, user) => {
-//         data.sellerName = user.displayName
-//       })
-//       return data;
-//     })
-//     return res.status(200).json(posts);
-//   })
-// })
-
 // // Get All Post
 app.get('/post', (req, res) => {
   Post.find({}, (err, post) => {
@@ -251,16 +227,15 @@ app.get('/user', (req, res) => {
   })
 })
 
+// Get list of user donation
 app.get('/user/donation', (req, res) => {
-  const { id } = req.query;
-  // const id = USER1_ID
-  User.findById(id, (err, user) => {
+  User.find({}, (err, user) => {
     if ( err ) return res.status(400).json({ log: err });
-    const data = {
-      id: user._id,
-      displayName: user.displayName,
-      donation: user.donation,
-    }
+    const data = user.map((item) => ({
+      id: item._id,
+      displayName: item.displayName,
+      donation: item.donation,
+    }))
     return res.status(200).json(data);
   })
 })
