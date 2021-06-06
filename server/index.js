@@ -80,10 +80,10 @@ app.post('/login', (req, res) => {
     password: req.body.password,
   };
   User.findOne({ email: data.email }, (err, user) => {
-    if ( err ) return res.status(400).json({ log: err });
-    if ( !user ) return res.status(400).json({ log: 'User not found' });
-    if ( user.password === data.password ) return res.status(200).json({ id: user._id });
-    return res.status(400).json({ log: 'Password wrong' });
+    if ( err ) return res.status(400).send({ log: err });
+    if ( !user ) return res.status(400).send({ log: 'User not found' });
+    if ( user.password === data.password ) return res.status(200).send({ id: user._id });
+    return res.status(400).send({ log: 'Password wrong' });
   })
 })
 
@@ -100,14 +100,13 @@ app.post('/register', (req, res) => {
   
   // Check duplicate email
   User.findOne({ email: data.email }, (err, user) => {
-    console.log(user)
-    if ( err ) return res.status(400).json({ log: 'Something went wrong', user: user, data: data, req: req.data });
-    if ( user ) return res.status(400).json({ log: 'Email is already exists', user: user, data: data, req: req.data });
+    if ( err ) return res.status(400).send({ log: 'Something went wrong' });
+    if ( user ) return res.status(400).send({ log: 'Email is already exists' });
     // Insert user
     const tmpUser = new User(data);
     tmpUser.save((err, user) => {
-      if ( err ) return res.status(400).json({ log: 'Something went wrong', user: user, data: data, req: req.data });
-      return res.status(201).json({ id: user._id });
+      if ( err ) return res.status(400).send({ log: 'Something went wrong' });
+      return res.status(201).send({ id: user._id });
     })
   })
 });
@@ -123,15 +122,15 @@ app.post('/post', (req, res) => {
   };
   const tmpPost = new Post(data);
   tmpPost.save((err, post) => {
-    if ( err ) return res.status(400).json({ log: err });
-    return res.status(201).json({ id: post._id });
+    if ( err ) return res.status(400).send({ log: err });
+    return res.status(201).send({ id: post._id });
   })
 })
 
 // // Get All Post
 app.get('/post', (req, res) => {
   Post.find({}, (err, post) => {
-    if ( err ) return res.status(400).json({ log: err });
+    if ( err ) return res.status(400).send({ log: err });
     const data = post.map((item) => (
       {
         id: item._id,
@@ -143,7 +142,7 @@ app.get('/post', (req, res) => {
         isAvailable: item.buyerId ? false : true
       }
     ))
-    return res.status(200).json(data);
+    return res.status(200).send(data);
   })
 })
 
@@ -152,8 +151,8 @@ app.get('/post/user', (req, res) => {
   const { id } = req.query;
   // const id = USER2_ID;
   Post.find({ sellerId: id }, (err, post) => {
-    if ( err ) return res.status(400).json({ log: err });
-    if ( !post ) return res.status(400).json({ log: 'Post is not exists' });
+    if ( err ) return res.status(400).send({ log: err });
+    if ( !post ) return res.status(400).send({ log: 'Post is not exists' });
     const data = post.map((item) => (
       {
         id: item._id,
@@ -165,7 +164,7 @@ app.get('/post/user', (req, res) => {
         isAvailable: item.buyerId ? false : true
       }
     ))
-    return res.status(200).json(data);
+    return res.status(200).send(data);
   })
 })
 
@@ -174,8 +173,8 @@ app.get('/post/info', (req, res) => {
   const { id } = req.query
   // const id = POST3_ID
   Post.findById(id , (err, item) => {
-    if ( err ) return res.status(400).json({ log: err });
-    if ( !item ) return res.status(400).json({ log: 'Post is not exists' });
+    if ( err ) return res.status(400).send({ log: err });
+    if ( !item ) return res.status(400).send({ log: 'Post is not exists' });
     const data = {
       id: item._id,
       title: item.title,
@@ -185,7 +184,7 @@ app.get('/post/info', (req, res) => {
       sellerId: item.sellerId,
       isAvailable: item.buyerId ? false : true,
     }
-    return res.status(200).json(data);
+    return res.status(200).send(data);
   })
 })
 
@@ -194,8 +193,8 @@ app.post('/purchase', (req, res) => {
   const { buyerId } = req.body
   const item = req.body.post
   Post.findById(item.id , (err, data) => {
-    if ( err ) return res.status(400).json({ log: err });
-    if ( !data ) return res.status(400).json({ log: 'Post is not exists' });
+    if ( err ) return res.status(400).send({ log: err });
+    if ( !data ) return res.status(400).send({ log: 'Post is not exists' });
     const { sellerId, sellerDonate, price } = data
     if (sellerDonate) {
       User.findOneAndUpdate({ _id: sellerId }, { $inc: { donation: (price*0.1) } }).exec()
@@ -213,7 +212,7 @@ app.get('/user', (req, res) => {
   const { id } = req.query;
   // const id = USER1_ID
   User.findById(id, (err, user) => {
-    if ( err ) return res.status(400).json({ log: err });
+    if ( err ) return res.status(400).send({ log: err });
     const data = {
       id: user._id,
       firstname: user.firstname,
@@ -222,20 +221,20 @@ app.get('/user', (req, res) => {
       displayName: user.displayName,
       donation: user.donation,
     }
-    return res.status(200).json(data);
+    return res.status(200).send(data);
   })
 })
 
 // Get list of user donation
 app.get('/user/donation', (req, res) => {
   User.find({}, (err, user) => {
-    if ( err ) return res.status(400).json({ log: err });
+    if ( err ) return res.status(400).send({ log: err });
     const data = user.map((item) => ({
       id: item._id,
       displayName: item.displayName,
       donation: item.donation,
     }))
-    return res.status(200).json(data);
+    return res.status(200).send(data);
   })
 })
 
@@ -244,8 +243,8 @@ app.get('/user/display', (req, res) => {
   const { id } = req.query;
   // const id = USER1_ID
   User.findById(id, (err, user) => {
-    if ( err ) return res.status(400).json({ log: err });
-    return res.status(200).json({ 
+    if ( err ) return res.status(400).send({ log: err });
+    return res.status(200).send({ 
       id: user._id, displayName: user.displayName
     });
   })
