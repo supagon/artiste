@@ -1,3 +1,4 @@
+import 'package:artiste_mobile/screen/explore.dart';
 import 'package:flutter/material.dart';
 import '../screen/home.dart';
 
@@ -10,11 +11,10 @@ class _BotNavState extends State<BotNav> {
   int _selectedIndex = 0;
   List<Widget> _widgetOptions = <Widget>[
     Home(),
-    Text('Messgaes Screen'),
-    Text('Seacrh Screen'),
+    Explore(),
     Text('add'),
-    Text('cart screen'),
-    Text('Profile screen'),
+    Text('donate rank'),
+    Text('profile'),
   ];
 
   void _onItemTap(int index) {

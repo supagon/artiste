@@ -38,29 +38,29 @@ class _HomeState extends State<Home> {
       home: Scaffold(
         appBar: Appbar(),
         body: SafeArea(
-          child: Expanded(
-            child: SingleChildScrollView(
-              physics: ScrollPhysics(),
-              child: Column(
-                children: [
-                  Consumer<Homefeed>(
-                    builder: (context, value, child) {
-                      final homelist = value.feed;
-                      return ListView.builder(
-                        physics: NeverScrollableScrollPhysics(),
-                        itemCount: homelist.length,
-                        shrinkWrap: true,
-                        itemBuilder: (BuildContext context, int index) {
-                          return FeedCard(
-                            image: homelist[index].image,
-                            isPressed: false,
-                          );
-                        },
-                      );
-                    },
-                  ),
-                ],
-              ),
+          child: SingleChildScrollView(
+            physics: ScrollPhysics(),
+            child: Column(
+              children: [
+                Consumer<Homefeed>(
+                  builder: (context, value, child) {
+                    final homelist = value.feed;
+                    print(homelist.length);
+                    return ListView.builder(
+                      physics: NeverScrollableScrollPhysics(),
+                      itemCount: homelist.length,
+                      shrinkWrap: true,
+                      itemBuilder: (BuildContext context, int index) {
+                        return FeedCard(
+                          displayName: homelist[index].displayName,
+                          image: homelist[index].image,
+                          isPressed: false,
+                        );
+                      },
+                    );
+                  },
+                ),
+              ],
             ),
           ),
         ),
