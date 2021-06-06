@@ -191,20 +191,18 @@ app.get('/post/info', (req, res) => {
 // Purchase
 app.post('/purchase', (req, res) => {
   const { buyerId } = req.body
-  const posts = req.body.posts
-  posts.map((item) => {
-    Post.findById(item.id , (err, data) => {
-      if ( err ) return res.status(400).json({ log: err });
-      if ( !data ) return res.status(400).json({ log: 'Post is not exists' });
-      const { sellerId, sellerDonate, price } = data
-      if (sellerDonate) {
-        User.findOneAndUpdate({ _id: sellerId }, { $inc: { donation: (price*0.1) } }).exec()
-      }
-      if (item.buyerDonate) {
-        User.findOneAndUpdate({ _id: buyerId }, { $inc: { donation: (price*0.1) } }).exec()
-      }
-      Post.findOneAndUpdate({ _id: item.id }, { buyerDonate: item.buyerDonate, buyerId: buyerId }).exec()
-    })
+  const item = req.body.post
+  Post.findById(item.id , (err, data) => {
+    if ( err ) return res.status(400).json({ log: err });
+    if ( !data ) return res.status(400).json({ log: 'Post is not exists' });
+    const { sellerId, sellerDonate, price } = data
+    if (sellerDonate) {
+      User.findOneAndUpdate({ _id: sellerId }, { $inc: { donation: (price*0.1) } }).exec()
+    }
+    if (item.buyerDonate) {
+      User.findOneAndUpdate({ _id: buyerId }, { $inc: { donation: (price*0.1) } }).exec()
+    }
+    Post.findOneAndUpdate({ _id: item.id }, { buyerDonate: item.buyerDonate, buyerId: buyerId }).exec()
   })
   return res.status(200).send();
 })
