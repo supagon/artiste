@@ -1,10 +1,11 @@
 class Homelist {
-  final String id, title, image, sellerId;
+  final String id, title, image, sellerId, displayName;
   final int price;
   final bool sellerDonate, isAvailable;
 
   Homelist(
-      {this.id,
+      {this.displayName,
+      this.id,
       this.title,
       this.image,
       this.sellerId,
