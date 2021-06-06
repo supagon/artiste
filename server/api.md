@@ -179,7 +179,7 @@
           ```
             {
               buyerId: String
-              posts: [{ id: String, buyerDonate: Boolean }]
+              post: { id: String, buyerDonate: Boolean }
             }
           ```
       - **Response** :
