@@ -100,8 +100,9 @@ app.post('/register', (req, res) => {
   
   // Check duplicate email
   User.findOne({ email: data.email }, (err, user) => {
+    console.log(user)
     if ( err ) return res.status(400).json({ log: err });
-    if ( user ) return res.status(400).json({ log: 'Email is already exists' });
+    if ( user ) return res.status(400).json({ log: 'Email is already exists', user: user, data: data });
     // Insert user
     const tmpUser = new User(data);
     tmpUser.save((err, user) => {
