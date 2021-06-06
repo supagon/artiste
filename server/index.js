@@ -101,12 +101,12 @@ app.post('/register', (req, res) => {
   // Check duplicate email
   User.findOne({ email: data.email }, (err, user) => {
     console.log(user)
-    if ( err ) return res.status(400).json({ log: err });
+    if ( err ) return res.status(400).json({ log: 'Something went wrong', user: user, data: data, req: req.data });
     if ( user ) return res.status(400).json({ log: 'Email is already exists', user: user, data: data, req: req.data });
     // Insert user
     const tmpUser = new User(data);
     tmpUser.save((err, user) => {
-      if ( err ) return res.status(400).json({ log: err });
+      if ( err ) return res.status(400).json({ log: 'Something went wrong', user: user, data: data, req: req.data });
       return res.status(201).json({ id: user._id });
     })
   })
