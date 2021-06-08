@@ -26,7 +26,7 @@ class Homefeed extends ChangeNotifier {
       final res = await Dio().get(endpoint);
       final data = res.data.toList();
 
-      print(data.length);
+/*       print(data.length); */
       if (data == null) return [];
 
       List<Homelist> fetchedHomefeed = [];
@@ -46,7 +46,7 @@ class Homefeed extends ChangeNotifier {
             sellerDonate: value['sellerDonate']));
       }
       _feed = fetchedHomefeed;
-      print(fetchedHomefeed.length);
+/*       print(fetchedHomefeed.length); */
 
       notifyListeners();
     } catch (err) {

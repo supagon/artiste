@@ -45,7 +45,7 @@ class _HomeState extends State<Home> {
                 Consumer<Homefeed>(
                   builder: (context, value, child) {
                     final homelist = value.feed;
-                    print(homelist.length);
+/*                     print(homelist.length); */
                     return ListView.builder(
                       physics: NeverScrollableScrollPhysics(),
                       itemCount: homelist.length,
