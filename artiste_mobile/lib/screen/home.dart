@@ -7,6 +7,11 @@ import 'package:artiste_mobile/provider/homefeed.dart';
 import 'package:provider/provider.dart';
 
 class Home extends StatefulWidget {
+  final onPageChange;
+  final selectedIndex;
+
+  Home({Key key, this.selectedIndex, this.onPageChange}) : super(key: key);
+
   @override
   _HomeState createState() => _HomeState();
 }
@@ -63,6 +68,9 @@ class _HomeState extends State<Home> {
               ],
             ),
           ),
+        ),
+        bottomNavigationBar: BotNav(
+          selectedIndex: 0,
         ),
       ),
     );

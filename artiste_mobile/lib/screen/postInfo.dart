@@ -1,5 +1,7 @@
+import 'package:flutter/material.dart';
+
 class postInfo extends StatefulWidget {
-  const postInfo({ Key? key }) : super(key: key);
+  const postInfo({Key key}) : super(key: key);
 
   @override
   _postInfoState createState() => _postInfoState();
@@ -8,8 +10,6 @@ class postInfo extends StatefulWidget {
 class _postInfoState extends State<postInfo> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      
-    );
+    return MaterialApp();
   }
 }
