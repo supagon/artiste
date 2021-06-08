@@ -1,6 +1,7 @@
 import 'package:artiste_mobile/provider/homefeed.dart';
 import 'package:artiste_mobile/provider/homelist.dart';
 import 'package:artiste_mobile/widgets/appbar.dart';
+import 'package:artiste_mobile/widgets/botnav.dart';
 import 'package:artiste_mobile/widgets/explorecard.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -52,6 +53,9 @@ class _ExploreState extends State<Explore> {
             },
           ),
         ),
+      ),
+      bottomNavigationBar: BotNav(
+        selectedIndex: 1,
       ),
     ));
   }
