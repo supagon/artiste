@@ -1,8 +1,10 @@
 import 'package:artiste_mobile/provider/auth.dart';
 import 'package:artiste_mobile/provider/homefeed.dart';
+import 'package:artiste_mobile/provider/users.dart';
 import 'package:artiste_mobile/screen/home.dart';
 import 'package:artiste_mobile/screen/login.dart';
 import 'package:artiste_mobile/screen/register.dart';
+import 'package:artiste_mobile/screen/user.dart';
 import 'package:artiste_mobile/widgets/botnav.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -18,7 +20,8 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
         providers: [
           ChangeNotifierProvider(create: (context) => Homefeed()),
-          ChangeNotifierProvider(create: (context) => Auth())
+          ChangeNotifierProvider(create: (context) => Auth()),
+          ChangeNotifierProvider(create: (context) => Users()),
         ],
         child: MaterialApp(
           title: 'Bottom navigation bar',

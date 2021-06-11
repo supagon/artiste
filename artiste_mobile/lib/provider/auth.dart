@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:dio/dio.dart';
+
 class Auth with ChangeNotifier {
   String _id;
   var publicAPI = 'http://23.102.228.97:3000/';
@@ -16,11 +17,12 @@ class Auth with ChangeNotifier {
   }
 
   Future<void> signup(
-      String firstName,
-      String lastName,
-      String email,
-      String password,
-      String displayname,) async {
+    String firstName,
+    String lastName,
+    String email,
+    String password,
+    String displayname,
+  ) async {
     var endpoint = publicAPI + 'register';
     print(firstName);
     print(lastName);
@@ -28,7 +30,7 @@ class Auth with ChangeNotifier {
     print(password);
     print(displayname);
     try {
-      final res = await Dio().post((endpoint),  data: {
+      final res = await Dio().post((endpoint), data: {
         'firstname': firstName,
         'lastname': lastName,
         'email': email,
@@ -39,9 +41,9 @@ class Auth with ChangeNotifier {
       print(res.statusCode);
       final data = res.data;
       print(data);
-      if (data == null) return; 
+      if (data == null) return;
 
-       if (res.statusCode == 201) {
+      if (res.statusCode == 201) {
         _id = data['id'];
         print(_id);
       } else if (res.statusCode == 400) {
@@ -54,11 +56,11 @@ class Auth with ChangeNotifier {
     }
   }
 
-   Future<bool> login(String email, String password) async {
+  Future<bool> login(String email, String password) async {
     var endpoint = publicAPI + 'login';
     try {
-      final res = await Dio().post((endpoint),
-         data: {"email": email, "password": password});
+      final res = await Dio()
+          .post((endpoint), data: {"email": email, "password": password});
 
       final data = (res.data);
 
@@ -66,11 +68,11 @@ class Auth with ChangeNotifier {
 
       _id = data['id'];
 
-/*       final prefs = await SharedPreferences.getInstance();
-      final user = json.encode({ 'id': _id});
+      final prefs = await SharedPreferences.getInstance();
+      final user = json.encode({'id': _id});
       print(user);
 
-      prefs.setString('user', user); */
+      prefs.setString('user', user);
 
       notifyListeners();
 
@@ -79,8 +81,9 @@ class Auth with ChangeNotifier {
       print(err);
     }
     return false;
-  } 
-    Future<bool> autoLogin() async {
+  }
+
+  Future<bool> autoLogin() async {
     final prefs = await SharedPreferences.getInstance();
 
     if (!prefs.containsKey('user')) return false;

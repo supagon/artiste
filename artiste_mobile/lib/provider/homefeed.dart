@@ -66,7 +66,7 @@ class Homefeed extends ChangeNotifier {
     try {
       final res = await Dio().get(endpoint);
       final data = res.data['displayName'].toString();
-
+      print(endpoint);
       if (data == null) return " ";
 
       return data;
