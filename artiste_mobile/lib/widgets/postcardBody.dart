@@ -1,4 +1,3 @@
-import 'package:artiste_mobile/screen/cart.dart';
 import 'package:artiste_mobile/screen/postInfo.dart';
 import 'package:artiste_mobile/widgets/primarycolor.dart';
 import 'package:flutter/material.dart';

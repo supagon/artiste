@@ -1,6 +1,5 @@
 import 'package:artiste_mobile/provider/homefeed.dart';
 import 'package:artiste_mobile/provider/homelist.dart';
-import 'package:artiste_mobile/screen/cart.dart';
 import 'package:artiste_mobile/screen/home.dart';
 import 'package:artiste_mobile/widgets/feedcard.dart';
 import 'package:artiste_mobile/widgets/postbar.dart';
@@ -76,8 +75,7 @@ class _postInfoState extends State<postInfo> {
                               textStyle: TextStyle(
                                   color: Colors.white, fontSize: 20))),
                       onPressed: () async {
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) => cart()));
+                        Navigator.push(context, MaterialPageRoute());
                       })),
             ],
           ),
