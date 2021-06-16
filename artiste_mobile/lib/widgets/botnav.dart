@@ -1,4 +1,5 @@
 import 'package:artiste_mobile/screen/explore.dart';
+import 'package:artiste_mobile/screen/upload.dart';
 import 'package:artiste_mobile/screen/user.dart';
 import 'package:flutter/material.dart';
 import '../screen/home.dart';
@@ -31,6 +32,10 @@ class _BotNavState extends State<BotNav> {
       return Home();
     } else if (index == 1) {
       return Explore();
+    } else if (index == 2) {
+      return Upload();
+    } else if (index == 3) {
+      return Text('hello');
     } else if (index == 4) {
       return User();
     }
@@ -39,6 +44,8 @@ class _BotNavState extends State<BotNav> {
   List<Widget> pageRoutes = [
     Home(),
     Explore(),
+    Upload(),
+    Text('hello'),
     User(),
   ];
 

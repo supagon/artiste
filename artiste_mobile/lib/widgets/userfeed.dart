@@ -1,22 +1,15 @@
+import 'package:artiste_mobile/provider/users.dart';
 import 'package:artiste_mobile/widgets/appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class UserFeed extends StatefulWidget implements PreferredSizeWidget {
   Size get preferredSize => const Size.fromHeight(55);
-  final String id, title, image, sellerId, displayName;
-  final int price;
-  final bool sellerDonate, isAvailable;
+  final String displayname;
 
   UserFeed({
-    this.displayName,
-    this.id,
-    this.title,
-    this.image,
-    this.sellerId,
-    this.price,
-    this.isAvailable,
-    this.sellerDonate,
+    this.displayname,
   });
 
   @override
@@ -24,37 +17,55 @@ class UserFeed extends StatefulWidget implements PreferredSizeWidget {
 }
 
 class _UserFeedState extends State<UserFeed> {
+  void GetUsername() async {
+    try {
+      await Provider.of<Users>(context, listen: false).getDisplayNameInfo();
+    } catch (err) {
+      print(err);
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    GetUsername();
+  }
+
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return SafeArea(
       child: Padding(
         padding: const EdgeInsets.only(left: 10, right: 10),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Row(
-              children: [
-                SizedBox(
-                  width: 10,
-                ),
-                Text(
-                  widget.displayName,
-                  style: GoogleFonts.montserrat()
-                      .copyWith(fontSize: 20, fontWeight: FontWeight.bold),
-                )
-              ],
-            ),
-            Row(
-              children: [
-                IconButton(
-                    splashRadius: 15,
-                    icon: Icon(Icons.login_outlined),
-                    onPressed: () {})
-              ],
-            )
-          ],
-        ),
+        child: Consumer<Users>(builder: (context, value, child) {
+          print(value.displayname);
+          final name = value.displayname;
+          return Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: [
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Text(
+                    name,
+                    style: GoogleFonts.montserrat()
+                        .copyWith(fontSize: 20, fontWeight: FontWeight.bold),
+                  ),
+                ],
+              ),
+              Row(
+                children: [
+                  IconButton(
+                      splashRadius: 15,
+                      icon: Icon(Icons.login_outlined),
+                      onPressed: () {})
+                ],
+              )
+            ],
+          );
+        }),
       ),
     );
   }

@@ -35,7 +35,7 @@ class _UserState extends State<User> {
     var size = MediaQuery.of(context).size;
     return MaterialApp(
       home: Scaffold(
-        appBar: Appbar(),
+        appBar: UserFeed(),
         body: SafeArea(
             child: SingleChildScrollView(
           physics: ScrollPhysics(),

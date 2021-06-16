@@ -62,12 +62,12 @@ class Homefeed extends ChangeNotifier {
 
   Future<String> getDisplayName(String id) async {
     var endpoint = publicAPI + 'user?id=$id';
-
+    print(id);
     try {
       final res = await Dio().get(endpoint);
       final data = res.data['displayName'].toString();
       print(endpoint);
-      if (data == null) return " ";
+      if (data == null) return "";
 
       return data;
     } catch (err) {

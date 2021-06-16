@@ -131,22 +131,37 @@ class _UserFeedBodyState extends State<UserFeedBody> {
           shrinkWrap: true,
           itemBuilder: (BuildContext context, int index) {
             return Wrap(
-                direction: Axis.horizontal,
-                spacing: 1.0,
-                runSpacing: 1.0,
-                children: List.generate(
-                  1,
-                  (index) {
-                    return Container(
-                      width: (size.width - 3) / 3,
-                      height: (size.width - 3) / 3,
-                      decoration: BoxDecoration(
-                          image: DecorationImage(
-                              image: NetworkImage(widget.images[index]),
-                              fit: BoxFit.cover)),
-                    );
-                  },
-                ));
+              direction: Axis.horizontal,
+              spacing: 1.0,
+              runSpacing: 1.0,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(1.0),
+                  child: Container(
+                    width: (size.width - 3) / 3,
+                    height: (size.width - 3) / 3,
+                    child: Image(
+                      image: NetworkImage(widget.images[index]),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                )
+              ],
+
+              // List.generate(
+              //   1,
+              //   (index) {
+              //     return Container(
+              //       width: (size.width - 3) / 3,
+              //       height: (size.width - 3) / 3,
+              //       decoration: BoxDecoration(
+              //           image: DecorationImage(
+              //               image: NetworkImage(widget.images[index]),
+              //               fit: BoxFit.cover)),
+              //     );
+              //   },
+              // )
+            );
           })
     ]));
   }
