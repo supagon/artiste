@@ -1,13 +1,20 @@
+import 'package:artiste_mobile/provider/users.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class UserFeedBody extends StatefulWidget {
   final List<String> images;
   final String displayname;
+  final String firstname, lastname;
+  final String donation;
 
   UserFeedBody({
     this.images,
     this.displayname,
+    this.firstname,
+    this.lastname,
+    this.donation,
   });
 
   @override
@@ -47,56 +54,37 @@ class _UserFeedBodyState extends State<UserFeedBody> {
                 ),
                 Container(
                   width: (size.width - 20) * 0.7,
-                  child: Row(
+                  height: 100,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      Column(
-                        children: [
-                          Text(
-                            widget.displayname,
-                            style: TextStyle(
-                                fontSize: 18, fontWeight: FontWeight.bold),
-                          ),
-                          Text(
-                            "Posts",
-                            style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                                height: 1.5),
-                          ),
-                        ],
+                      Container(
+                        child: Text(
+                          "Firstname: " + widget.firstname,
+                          style: GoogleFonts.montserrat().copyWith(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16,
+                              letterSpacing: 0.5),
+                        ),
                       ),
-                      Column(
-                        children: [
-                          Text(
-                            "117",
-                            style: TextStyle(
-                                fontSize: 18, fontWeight: FontWeight.bold),
-                          ),
-                          Text(
-                            "Follwers",
-                            style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                                height: 1.5),
-                          ),
-                        ],
+                      Container(
+                        child: Text(
+                          "Lastname: " + widget.lastname,
+                          style: GoogleFonts.montserrat().copyWith(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16,
+                              letterSpacing: 0.5),
+                        ),
                       ),
-                      Column(
-                        children: [
-                          Text(
-                            "173",
-                            style: TextStyle(
-                                fontSize: 18, fontWeight: FontWeight.bold),
-                          ),
-                          Text(
-                            "Following",
-                            style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.bold,
-                                height: 1.5),
-                          ),
-                        ],
+                      Container(
+                        child: Text(
+                          "Donate: " + widget.donation,
+                          style: GoogleFonts.montserrat().copyWith(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16,
+                              letterSpacing: 0.5),
+                        ),
                       ),
                     ],
                   ),
@@ -118,7 +106,8 @@ class _UserFeedBodyState extends State<UserFeedBody> {
         child: Center(
           child: Text(
             "Edit Profile",
-            style: GoogleFonts.montserrat().copyWith(),
+            style: GoogleFonts.montserrat().copyWith(
+                fontWeight: FontWeight.normal, color: Color(0xFFF5F5F5)),
           ),
         ),
       ),

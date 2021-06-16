@@ -6,10 +6,19 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import './homelist.dart';
 
+class Info {
+  final String firstname, lastname;
+  final String donation;
+
+  Info({this.firstname, this.lastname, this.donation});
+}
+
 class Users extends ChangeNotifier {
   List<String> _images = [];
+  Info info;
   String _id;
   String _displayname = "";
+
   var publicAPI = 'http://23.102.228.97:3000/';
 
   // List<Homelist> get profile {
@@ -65,6 +74,23 @@ class Users extends ChangeNotifier {
       final data = res.data['displayName'].toString();
       _displayname = data;
       notifyListeners();
+    } catch (err) {
+      print(err);
+    }
+  }
+
+  Future<void> getInfo() async {
+    var endpoint = publicAPI + 'user?id=$id';
+
+    try {
+      final res = await Dio().get(endpoint);
+      final data = res.data;
+      print(data['donation'].toString());
+      info = Info(
+        firstname: data['firstname'].toString(),
+        lastname: data['lastname'].toString(),
+        donation: data['donation'].toString(),
+      );
     } catch (err) {
       print(err);
     }

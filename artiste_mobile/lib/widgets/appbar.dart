@@ -19,7 +19,7 @@ class _AppbarState extends State<Appbar> {
     return AppBar(
       backgroundColor: Color(0xFF544667),
       // shadowColor: ,
-      textTheme: TextTheme(headline6: TextStyle(color: Colors.black)),
+      textTheme: TextTheme(headline6: TextStyle(color: Color(0xFFF5F5F5))),
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(bottom: Radius.circular(17))),
       title: Text(
@@ -41,7 +41,7 @@ class _AppbarState extends State<Appbar> {
         Icon(Icons.menu)
       ],
       actionsIconTheme:
-          IconThemeData(size: 30.0, color: Colors.black, opacity: 10.0),
+          IconThemeData(size: 30.0, color: Color(0xFFF5F5F5), opacity: 10.0),
     );
   }
 }

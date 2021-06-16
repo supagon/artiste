@@ -19,6 +19,7 @@ class _UserState extends State<User> {
     try {
       await Provider.of<Users>(context, listen: false).getUserImages();
       await Provider.of<Users>(context, listen: false).getDisplayNameInfo();
+      await Provider.of<Users>(context, listen: false).getInfo();
     } catch (err) {
       print(err);
     }
@@ -45,7 +46,12 @@ class _UserState extends State<User> {
                 builder: (context, value, child) {
                   final images = value.images;
                   return UserFeedBody(
-                      images: images, displayname: value.displayname);
+                    images: images,
+                    displayname: value.displayname,
+                    firstname: value.info.firstname,
+                    lastname: value.info.lastname,
+                    donation: value.info.donation.toString(),
+                  );
                 },
               ),
             ],
