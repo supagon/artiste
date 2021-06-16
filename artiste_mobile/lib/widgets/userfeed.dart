@@ -1,4 +1,5 @@
 import 'package:artiste_mobile/provider/users.dart';
+import 'package:artiste_mobile/screen/login.dart';
 import 'package:artiste_mobile/widgets/appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -60,7 +61,12 @@ class _UserFeedState extends State<UserFeed> {
                   IconButton(
                       splashRadius: 15,
                       icon: Icon(Icons.login_outlined),
-                      onPressed: () {})
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => LoginScreen()));
+                      })
                 ],
               )
             ],

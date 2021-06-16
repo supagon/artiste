@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
           ChangeNotifierProvider(create: (context) => DonationList())
         ],
         child: MaterialApp(
-          title: 'Bottom navigation bar',
+          title: 'Artiste',
           home: LoginScreen(),
         ));
   }
