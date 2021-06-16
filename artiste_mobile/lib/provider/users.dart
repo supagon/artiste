@@ -85,7 +85,7 @@ class Users extends ChangeNotifier {
     try {
       final res = await Dio().get(endpoint);
       final data = res.data;
-      print(data['donation'].toString());
+
       info = Info(
         firstname: data['firstname'].toString(),
         lastname: data['lastname'].toString(),

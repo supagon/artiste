@@ -36,7 +36,7 @@ class DonationList extends ChangeNotifier {
         fetchedHomefeed.add(Donator(
           id: value['id'],
           displayName: value['displayName'],
-          donation: value['donation'],
+          donation: value['donation'].toString(),
         ));
       }
       _donationList = fetchedHomefeed;

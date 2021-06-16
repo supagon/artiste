@@ -1,10 +1,12 @@
+import 'dart:ffi';
+
 class Donator {
   final String id, displayName;
-  final int donation;
+  final String donation;
 
-  Donator(
-      {this.displayName,
-      this.id,
-      this.donation,
-});
+  Donator({
+    this.displayName,
+    this.id,
+    this.donation,
+  });
 }

@@ -1,11 +1,8 @@
-
 import 'package:artiste_mobile/widgets/appbar.dart';
 import 'package:artiste_mobile/widgets/botnav.dart';
-import 'package:artiste_mobile/widgets/donationcard.dart';
 import 'package:artiste_mobile/widgets/primarycolor.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:dio/dio.dart';
 import 'package:artiste_mobile/provider/Donator.dart';
 import 'package:artiste_mobile/provider/DonationList.dart';
 import 'package:provider/provider.dart';
@@ -36,6 +33,7 @@ class _RankState extends State<Rank> {
     super.initState();
     GetDonation();
   }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -61,39 +59,39 @@ class _RankState extends State<Rank> {
                   ),
                   SizedBox(height: 10),
                   Consumer<DonationList>(builder: (context, value, child) {
-                final donationcard = value.donationList;
-                print(donationcard.length);
-                return ListView.builder(
-                  physics: NeverScrollableScrollPhysics(),
-                  itemCount: donationcard.length,
-                  shrinkWrap: true,
-                  itemBuilder: (BuildContext context, int index) {
-                    return Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            donationcard[index].displayName,
-                            style: GoogleFonts.montserrat(
-                              textStyle: TextStyle(
-                                  fontWeight: FontWeight.normal,
-                                  fontSize: 22,
-                                  color: kPrimaryColor),
+                    final donationcard = value.donationList;
+                    print(donationcard.length);
+                    return ListView.builder(
+                      physics: NeverScrollableScrollPhysics(),
+                      itemCount: donationcard.length,
+                      shrinkWrap: true,
+                      itemBuilder: (BuildContext context, int index) {
+                        return Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              donationcard[index].displayName,
+                              style: GoogleFonts.montserrat(
+                                textStyle: TextStyle(
+                                    fontWeight: FontWeight.normal,
+                                    fontSize: 22,
+                                    color: kPrimaryColor),
+                              ),
                             ),
-                          ),
-                          Text(
-                            donationcard[index].donation.toString()+" thb",
-                            style: GoogleFonts.montserrat(
-                              textStyle: TextStyle(
-                                  fontWeight: FontWeight.normal,
-                                  fontSize: 22,
-                                  color: kPrimaryColor),
+                            Text(
+                              donationcard[index].donation.toString() + " thb",
+                              style: GoogleFonts.montserrat(
+                                textStyle: TextStyle(
+                                    fontWeight: FontWeight.normal,
+                                    fontSize: 22,
+                                    color: kPrimaryColor),
+                              ),
                             ),
-                          ),
-                        ],
-                      );
-                  },
-                );
-              }),
+                          ],
+                        );
+                      },
+                    );
+                  }),
 /*                   ListView.builder(
                     itemCount: widget.donationList.length,
                     itemBuilder: (BuildContext context, int index) {
