@@ -57,6 +57,7 @@ class _HomeState extends State<Home> {
                       shrinkWrap: true,
                       itemBuilder: (BuildContext context, int index) {
                         return FeedCard(
+                          id: homelist[index].id,
                           displayName: homelist[index].displayName,
                           image: homelist[index].image,
                           isPressed: false,

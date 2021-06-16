@@ -1,30 +1,31 @@
-import 'package:artiste_mobile/provider/getPostInfo.dart';
 import 'package:artiste_mobile/screen/postInfo.dart';
+import 'package:artiste_mobile/widgets/primarycolor.dart';
 import 'package:flutter/material.dart';
-import 'package:artiste_mobile/widgets/PostcardBody.dart';
+import 'package:artiste_mobile/provider/homefeed.dart';
+import 'package:google_fonts/google_fonts.dart';
 
-class FeedCard extends StatefulWidget {
+class PostcardBody extends StatefulWidget {
   bool isPressed;
-  final String id, title, image, sellerId, displayName;
-  final int price;
+  final String title, image, price, sellerId, displayName, postId;
+  final String id;
   final bool sellerDonate, isAvailable;
-
-  FeedCard(
+  PostcardBody(
       {this.displayName,
+      this.postId,
       this.id,
       this.title,
       this.image,
-      this.sellerId,
       this.price,
-      this.isAvailable,
       this.sellerDonate,
+      this.sellerId,
+      this.isAvailable,
       this.isPressed});
 
   @override
-  _FeedCardState createState() => _FeedCardState();
+  _PostcardBodyState createState() => _PostcardBodyState();
 }
 
-class _FeedCardState extends State<FeedCard> {
+class _PostcardBodyState extends State<PostcardBody> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -76,17 +77,38 @@ class _FeedCardState extends State<FeedCard> {
           ),
           Flexible(
             fit: FlexFit.loose,
-            child: InkWell(
-            onTap: () => { Navigator.push(context, MaterialPageRoute(builder: (context) => postInfo(id: widget.id)))},
-            child: IgnorePointer(
             child: new Image.network(
               widget.image,
               fit: BoxFit.cover,
             ),
+          ),
+          SizedBox(height: 5),
+          Container(
+            margin: EdgeInsets.only(top: 10,left: 15, right: 15),
+            alignment: Alignment.topLeft,
+            child: Column(
+              children: [
+                Text(widget.title.toString(),
+                  style: GoogleFonts.montserrat(
+                    textStyle: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20,
+                        color: kPrimaryColor),
+                  ),
+                ),
+                SizedBox(height: 5),
+                Text(
+                  "Price: " + widget.price.toString(),
+                  style: GoogleFonts.montserrat(
+                    textStyle: TextStyle(
+                        fontWeight: FontWeight.normal,
+                        fontSize: 15,
+                        color: kPrimaryColor),
+                  ),
+                ),
+              ],
             ),
-            
-          ),
-          ),
+          )
         ],
       ),
     );

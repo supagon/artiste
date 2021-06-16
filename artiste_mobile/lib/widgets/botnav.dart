@@ -1,5 +1,6 @@
 import 'package:artiste_mobile/screen/explore.dart';
 import 'package:artiste_mobile/screen/upload.dart';
+import 'package:artiste_mobile/screen/rank.dart';
 import 'package:artiste_mobile/screen/user.dart';
 import 'package:flutter/material.dart';
 import '../screen/home.dart';
@@ -35,7 +36,7 @@ class _BotNavState extends State<BotNav> {
     } else if (index == 2) {
       return Upload();
     } else if (index == 3) {
-      return Text('hello');
+      return Rank();
     } else if (index == 4) {
       return User();
     }
@@ -45,7 +46,7 @@ class _BotNavState extends State<BotNav> {
     Home(),
     Explore(),
     Upload(),
-    Text('hello'),
+    Rank(),
     User(),
   ];
 
@@ -75,9 +76,9 @@ class _BotNavState extends State<BotNav> {
               icon: Icon(Icons.add_circle_outlined), label: 'Add'),
           BottomNavigationBarItem(
             icon: Icon(
-              Icons.shopping_cart,
+              Icons.attach_money,
             ),
-            label: 'Cart',
+            label: 'Rank',
           ),
           BottomNavigationBarItem(
             icon: Icon(

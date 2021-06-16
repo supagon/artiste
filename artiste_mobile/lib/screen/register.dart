@@ -32,7 +32,7 @@ class _registerScreenState extends State<registerScreen> {
     Auth auth = Provider.of<Auth>(context);
     return Scaffold(
         body: SingleChildScrollView(
-          child: Container(
+            child: Container(
       margin: EdgeInsets.all(24),
       alignment: Alignment.center,
       child: Form(
@@ -40,82 +40,88 @@ class _registerScreenState extends State<registerScreen> {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                SizedBox(height: 30),
+            SizedBox(height: 30),
+            Text(
+              'Create Account',
+              style: GoogleFonts.montserrat(
+                textStyle: TextStyle(
+                    fontWeight: FontWeight.normal,
+                    fontSize: 28,
+                    color: kPrimaryColor),
+              ),
+            ),
+            SizedBox(height: 15),
+            regisEmail(
+              emailController: _emailController,
+            ),
+            SizedBox(height: 10),
+            regisPassword(
+              passwordController: _passwordController,
+            ),
+            SizedBox(height: 10),
+            regisFname(
+              firstnameController: _firstNameController,
+            ),
+            SizedBox(height: 10),
+            regisLname(
+              lastnameController: _lastNameController,
+            ),
+            SizedBox(height: 10),
+            regisDisplayname(
+              displaynameController: _displaynameController,
+            ),
+            SizedBox(height: 10),
+            Container(
+              width: double.infinity,
+              child: RaisedButton(
+                  color: kPrimaryColor,
+                  child: Text("Create Account",
+                      style: GoogleFonts.roboto(
+                          textStyle:
+                              TextStyle(color: Colors.white, fontSize: 20))),
+                  onPressed: () async {
+                    await auth
+                        .signup(
+                            _firstNameController.text.toString(),
+                            _lastNameController.text.toString(),
+                            _emailController.text.toString(),
+                            _passwordController.text.toString(),
+                            _displaynameController.text.toString())
+                        .then((value) => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => LoginScreen())));
+                  }),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
                 Text(
-                  'Create Account',
+                  "Have an account ? ",
                   style: GoogleFonts.montserrat(
-                    textStyle: TextStyle(
-                        fontWeight: FontWeight.normal,
-                        fontSize: 28,
-                        color: kPrimaryColor),
+                    textStyle: TextStyle(fontSize: 15, color: kPrimaryColor),
                   ),
                 ),
-                SizedBox(height: 15),
-                regisEmail(emailController: _emailController,),
-                SizedBox(height: 10),
-                regisPassword(passwordController: _passwordController,),
-                SizedBox(height: 10),
-                regisFname(firstnameController: _firstNameController,),
-                SizedBox(height: 10),
-                regisLname(lastnameController: _lastNameController,),
-                SizedBox(height: 10),
-                regisDisplayname(displaynameController: _displaynameController,),
-                SizedBox(height: 10),
-                Container(
-                  width: double.infinity,
-                  child: RaisedButton(
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) {
+                      return LoginScreen();
+                    }));
+                  },
+                  child: Text(
+                    "Sign In.",
+                    style: GoogleFonts.montserrat(
+                        textStyle: TextStyle(
+                      fontSize: 17.5,
                       color: kPrimaryColor,
-                      child: Text("Create Account",
-                          style: GoogleFonts.roboto(
-                              textStyle: TextStyle(
-                                  color: Colors.white, fontSize: 20))),
-                      onPressed: () async {
-                            await auth
-                                .signup(
-                                    _firstNameController.text.toString(),
-                                    _lastNameController.text.toString(),
-                                    _emailController.text.toString(),
-                                    _passwordController.text.toString(),
-                                    _displaynameController.text.toString())
-                                .then((value) => Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => LoginScreen())));
-                      }
-                      ),
-                ),
-                Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Text(
-                        "Have an account ? ",
-                        style: GoogleFonts.montserrat(
-                          textStyle: TextStyle(
-                            fontSize: 15, 
-                            color: kPrimaryColor
-                          ),
-                        ),
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.push(context,
-                              MaterialPageRoute(builder: (context) {
-                            return LoginScreen();
-                          }));
-                        },
-                        child: Text(
-                          "Sign In.",
-                          style: GoogleFonts.montserrat(
-                              textStyle: TextStyle(
-                            fontSize: 17.5,
-                            color: kPrimaryColor,
-                            fontWeight: FontWeight.w500,
-                          )),
-                        ),
-                      )
-                    ],
+                      fontWeight: FontWeight.w500,
+                    )),
                   ),
-              ])),
+                )
+              ],
+            ),
+          ])),
     )));
   }
 }
