@@ -100,7 +100,7 @@ class UploadCardState extends State<UploadCard> {
             onChanged: (bool value) {
               setState(() {
                 timeDilation = value ? 1.5 : 1.0;
-                widget.ischeck = !widget.ischeck;
+                widget.ischeck = value;
                 print(widget.ischeck);
               });
             },
