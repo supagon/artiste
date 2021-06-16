@@ -17,7 +17,7 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
-    String statusText = '';
+  String statusText = '';
 
   void setStatus(int status) {
     setState(() {
@@ -25,10 +25,11 @@ class _LoginScreenState extends State<LoginScreen> {
           status == 1 ? 'Log In Success.' : 'Email or Password is incorrect.';
     });
   }
+
   @override
   Widget build(BuildContext context) {
     Auth auth = Provider.of<Auth>(context);
-    
+
     Size size = MediaQuery.of(context).size;
     // We are using this to determine Keyboard is opened or not
     double viewInset = MediaQuery.of(context).viewInsets.bottom;
@@ -70,33 +71,35 @@ class _LoginScreenState extends State<LoginScreen> {
                           controller: _passwordController, hint: 'Password'),
                       SizedBox(height: 5),
                       SizedBox(height: 10),
-                Container(
-                  width: double.infinity,
-                  child: RaisedButton(
-                      color: kPrimaryColor,
-                      child: Text("Login",
-                          style: GoogleFonts.roboto(
-                              textStyle: TextStyle(
-                                  color: Colors.white, fontSize: 20))),
-                      onPressed: () async {
-                            await auth
-                                .login(
-                                    _emailController.text.toString(),
-                                    _passwordController.text.toString(),)
-                                .then((status) {
+                      Container(
+                          width: double.infinity,
+                          child: RaisedButton(
+                              color: kPrimaryColor,
+                              child: Text("Login",
+                                  style: GoogleFonts.roboto(
+                                      textStyle: TextStyle(
+                                          color: Colors.white, fontSize: 20))),
+                              onPressed: () async {
+                                await auth
+                                    .login(
+                                  _emailController.text.toString(),
+                                  _passwordController.text.toString(),
+                                )
+                                    .then((status) {
                                   print(status);
                                   if (status == true) {
-                                    Navigator.push(context,
-                                    MaterialPageRoute(
-                                        builder: (context) => Home()));
-                                        setStatus(1);
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => Home(),
+                                      ),
+                                    );
+                                    setStatus(1);
                                   } else {
-                                  setStatus(0);
+                                    setStatus(0);
                                   }
                                 });
-
-                      }
-                      )),
+                              })),
                       SizedBox(height: 10),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,

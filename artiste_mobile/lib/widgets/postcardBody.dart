@@ -83,9 +83,32 @@ class _PostcardBodyState extends State<PostcardBody> {
             ),
           ),
           SizedBox(height: 5),
-          Text("Title "+ widget.title.toString()),
-          SizedBox(height: 5),
-          Text("Price: " + widget.price.toString()),
+          Container(
+            margin: EdgeInsets.only(top: 10,left: 15, right: 15),
+            alignment: Alignment.topLeft,
+            child: Column(
+              children: [
+                Text(widget.title.toString(),
+                  style: GoogleFonts.montserrat(
+                    textStyle: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20,
+                        color: kPrimaryColor),
+                  ),
+                ),
+                SizedBox(height: 5),
+                Text(
+                  "Price: " + widget.price.toString(),
+                  style: GoogleFonts.montserrat(
+                    textStyle: TextStyle(
+                        fontWeight: FontWeight.normal,
+                        fontSize: 15,
+                        color: kPrimaryColor),
+                  ),
+                ),
+              ],
+            ),
+          )
         ],
       ),
     );

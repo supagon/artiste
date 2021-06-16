@@ -45,7 +45,7 @@ class Getpostinfo extends ChangeNotifier {
       for (int i = 0; i < data.length; i++) {
         final element = data[i];
         String displayName = await getDisplayName(element['sellerId']);
-        print(temp);
+        /* print(temp); */
         temp.add(postdetail(
             id: element["id"],
             displayName: displayName,
@@ -70,7 +70,7 @@ class Getpostinfo extends ChangeNotifier {
     try {
       final res = await Dio().get(endpoint);
       final data = res.data['displayName'].toString();
-      print(endpoint);
+      /* print(endpoint); */
       if (data == null) return " ";
 
       return data;

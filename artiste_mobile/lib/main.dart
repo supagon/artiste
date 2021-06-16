@@ -1,3 +1,4 @@
+import 'package:artiste_mobile/provider/DonationList.dart';
 import 'package:artiste_mobile/provider/auth.dart';
 import 'package:artiste_mobile/provider/getPostInfo.dart';
 import 'package:artiste_mobile/provider/homefeed.dart';
@@ -23,7 +24,8 @@ class MyApp extends StatelessWidget {
           ChangeNotifierProvider(create: (context) => Homefeed()),
           ChangeNotifierProvider(create: (context) => Auth()),
           ChangeNotifierProvider(create: (context) => Users()),
-          ChangeNotifierProvider(create: (context) => Getpostinfo())
+          ChangeNotifierProvider(create: (context) => Getpostinfo()),
+          ChangeNotifierProvider(create: (context) => DonationList())
         ],
         child: MaterialApp(
           title: 'Bottom navigation bar',
