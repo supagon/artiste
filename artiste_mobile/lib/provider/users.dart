@@ -91,6 +91,7 @@ class Users extends ChangeNotifier {
         lastname: data['lastname'].toString(),
         donation: data['donation'].toString(),
       );
+      notifyListeners();
     } catch (err) {
       print(err);
     }
